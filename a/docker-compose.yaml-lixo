@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+  rabbit:
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    # volumes:
+    #   - './rabbitmq_data:/var/lib/rabbitmq/mnesia'
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    # networks:
+    #   - micro-live
+
+  # nginx:
+  #   image: nginx
+  #   volumes: 
+  #     - ./templates:/usr/share/nginx/html/
+  #   ports:
+  #     - 8080:80
+
+  fullcycle-a:
+    image: eskokado/fullcycle-a:latest
+    volumes: 
+      - ./templates:/go/src/templates/
+    ports:
+      - 9090:9090
+    # networks:
+    #   - micro-live
+      
+  fullcycle-c:
+    image: eskokado/fullcycle-c:latest
+    ports:
+      - 9092:9092
+    # networks:
+    #   - micro-live
+
+  fullcycle-b:
+    image: eskokado/fullcycle-b:latest
+    ports:
+      - 9091:9091
+    # networks:
+    #   - micro-live
+            
+      
+
+# networks:
+#   micro-live:
+#     driver: bridge

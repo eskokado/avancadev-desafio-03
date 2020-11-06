@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  rabbit:
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  # nginx:
+  #   image: nginx
+  #   volumes: 
+  #     - ./a/templates:/usr/share/nginx/html/
+  #   ports:
+  #     - 8080:80
+
+  fullcycle-a:
+    image: eskokado/fullcycle-a:latest
+    ports:
+      - 9090:9090
+    
+  fullcycle-b:
+    image: eskokado/fullcycle-b:latest
+    ports:
+      - 9091:9091
+        
+  fullcycle-c:
+    image: eskokado/fullcycle-c:latest
+    ports:
+      - 9092:9092
+                
